@@ -1,9 +1,12 @@
 package com.example.projeto.gestao_de_chamados.entity;
 
+import java.util.List;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity 
@@ -14,7 +17,8 @@ public class Categoria {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nome;
-
+    @OneToMany(mappedBy = "categoria")
+    private List<Chamado> chamados;
     public Categoria(){}
 
     public Categoria(Long id, String nome) {

@@ -1,5 +1,7 @@
 package com.example.projeto.gestao_de_chamados.entity;
 
+import java.util.List;
+
 import com.example.projeto.gestao_de_chamados.enums.Role;
 
 import jakarta.persistence.Entity;
@@ -8,6 +10,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -22,6 +25,11 @@ public class Usuario {
     private String senha;
     @Enumerated (EnumType.STRING) /*Banco armazena as Strings, não 0 1 2 */
     private Role role;
+
+    @OneToMany(mappedBy = "usuarioSolicitante")
+    private List<Chamado> chamadosSolicitados;
+    @OneToMany(mappedBy = "atendente")
+    private List<Chamado> chamadosAtendentes;
 
     public Usuario(){}
 
