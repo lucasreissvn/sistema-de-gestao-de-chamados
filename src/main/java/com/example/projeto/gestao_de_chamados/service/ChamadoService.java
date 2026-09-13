@@ -10,6 +10,8 @@ import com.example.projeto.gestao_de_chamados.dto.ChamadoResponseDTO;
 import com.example.projeto.gestao_de_chamados.entity.Categoria;
 import com.example.projeto.gestao_de_chamados.entity.Chamado;
 import com.example.projeto.gestao_de_chamados.enums.StatusChamado;
+import com.example.projeto.gestao_de_chamados.exception.CategoriaNotFoundException;
+import com.example.projeto.gestao_de_chamados.exception.ChamadoNotFoundException;
 import com.example.projeto.gestao_de_chamados.repository.CategoriaRepository;
 import com.example.projeto.gestao_de_chamados.repository.ChamadoRepository;
 
@@ -41,7 +43,8 @@ public class ChamadoService {
     }
 
     public ChamadoResponseDTO buscarChamado(Long id) {
-        Chamado chamado = chamadoRepository.findById(id).orElseThrow(() -> new RuntimeException("Chamado não existe"));
+        Chamado chamado = chamadoRepository.findById(id)
+                .orElseThrow(() -> new ChamadoNotFoundException("Chamado não existe"));
         return new ChamadoResponseDTO(
                 chamado.getId(),
                 chamado.getTitulo(),
@@ -64,7 +67,7 @@ public class ChamadoService {
         chamado.setDataAbertura(LocalDateTime.now());
 
         Categoria categoria = categoriaRepository.findById(chamadoCreateDTO.categoriaId())
-                .orElseThrow(() -> new RuntimeException("Categoria não existe"));
+                .orElseThrow(() -> new CategoriaNotFoundException("Categoria não existe"));
         chamado.setCategoria(categoria);
 
         Chamado chamadoSalvo = chamadoRepository.save(chamado);
@@ -84,13 +87,14 @@ public class ChamadoService {
     }
 
     public ChamadoResponseDTO atualizarChamado(Long id, ChamadoCreateDTO chamadoCreateDTO) {
-        Chamado chamado = chamadoRepository.findById(id).orElseThrow(() -> new RuntimeException("Chamado não existe"));
+        Chamado chamado = chamadoRepository.findById(id)
+                .orElseThrow(() -> new ChamadoNotFoundException("Chamado não existe"));
         chamado.setTitulo(chamadoCreateDTO.titulo());
         chamado.setDescricao(chamadoCreateDTO.descricao());
         chamado.setPrioridade(chamadoCreateDTO.prioridade());
 
         Categoria categoria = categoriaRepository.findById(chamadoCreateDTO.categoriaId())
-                .orElseThrow(() -> new RuntimeException("Categoria não existe"));
+                .orElseThrow(() -> new CategoriaNotFoundException("Categoria não existe"));
         chamado.setCategoria(categoria);
 
         chamado.setDataAtualizacao(LocalDateTime.now());
@@ -111,7 +115,8 @@ public class ChamadoService {
     }
 
     public void deletarChamado(Long id) {
-        Chamado chamado = chamadoRepository.findById(id).orElseThrow(() -> new RuntimeException("Chamado não existe"));
+        Chamado chamado = chamadoRepository.findById(id)
+                .orElseThrow(() -> new ChamadoNotFoundException("Chamado não existe"));
         chamadoRepository.delete(chamado);
     }
 }

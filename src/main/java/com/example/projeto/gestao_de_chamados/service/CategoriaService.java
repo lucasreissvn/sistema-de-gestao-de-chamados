@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import com.example.projeto.gestao_de_chamados.dto.CategoriaCreateDTO;
 import com.example.projeto.gestao_de_chamados.dto.CategoriaResponseDTO;
 import com.example.projeto.gestao_de_chamados.entity.Categoria;
+import com.example.projeto.gestao_de_chamados.exception.CategoriaNotFoundException;
 import com.example.projeto.gestao_de_chamados.repository.CategoriaRepository;
 
 @Service
@@ -28,7 +29,7 @@ public class CategoriaService {
 
     public CategoriaResponseDTO buscarCategoria(Long id) {
         Categoria categoria = categoriaRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Categoria não existe"));
+                .orElseThrow(() -> new CategoriaNotFoundException("Categoria não existe"));
         return new CategoriaResponseDTO(categoria.getId(), categoria.getNome());
     }
 
@@ -42,7 +43,7 @@ public class CategoriaService {
 
     public CategoriaResponseDTO atualizarCategoria(Long id, CategoriaCreateDTO categoriaCreateDTO) {
         Categoria categoria = categoriaRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Categoria não existe"));
+                .orElseThrow(() -> new CategoriaNotFoundException("Categoria não existe"));
         categoria.setNome(categoriaCreateDTO.nome());
         Categoria categoriaSalvo = categoriaRepository.save(categoria);
         return new CategoriaResponseDTO(categoriaSalvo.getId(), categoriaSalvo.getNome());
@@ -50,7 +51,7 @@ public class CategoriaService {
 
     public void deletarCategoria(Long id) {
         Categoria categoria = categoriaRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Categoria não existe"));
+                .orElseThrow(() -> new CategoriaNotFoundException("Categoria não existe"));
         categoriaRepository.delete(categoria);
     }
 }
