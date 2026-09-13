@@ -36,7 +36,7 @@ public class ChamadoService {
                         chamado.getPrioridade(),
                         chamado.getDataAbertura(),
                         chamado.getDataAtualizacao(),
-                        chamado.getUsuarioSolicitante().getId(),
+                        chamado.getUsuarioSolicitante() != null ? chamado.getUsuarioSolicitante().getId() : null,
                         chamado.getAtendente() != null ? chamado.getAtendente().getId() : null,
                         chamado.getCategoria().getId()))
                 .toList();
@@ -53,7 +53,7 @@ public class ChamadoService {
                 chamado.getPrioridade(),
                 chamado.getDataAbertura(),
                 chamado.getDataAtualizacao(),
-                chamado.getUsuarioSolicitante().getId(),
+                chamado.getUsuarioSolicitante() != null ? chamado.getUsuarioSolicitante().getId() : null,
                 chamado.getAtendente() != null ? chamado.getAtendente().getId() : null,
                 chamado.getCategoria().getId());
     }
@@ -80,7 +80,7 @@ public class ChamadoService {
                 chamadoSalvo.getPrioridade(),
                 chamadoSalvo.getDataAbertura(),
                 chamadoSalvo.getDataAtualizacao(),
-                chamadoSalvo.getUsuarioSolicitante().getId(),
+                chamadoSalvo.getUsuarioSolicitante() != null ? chamadoSalvo.getUsuarioSolicitante().getId() : null,
                 chamadoSalvo.getAtendente() != null ? chamadoSalvo.getAtendente().getId() : null,
                 chamadoSalvo.getCategoria().getId());
 
@@ -109,7 +109,7 @@ public class ChamadoService {
                 chamadoSalvo.getPrioridade(),
                 chamadoSalvo.getDataAbertura(),
                 chamadoSalvo.getDataAtualizacao(),
-                chamadoSalvo.getUsuarioSolicitante().getId(),
+                chamadoSalvo.getUsuarioSolicitante() != null ? chamadoSalvo.getUsuarioSolicitante().getId() : null,
                 chamadoSalvo.getAtendente() != null ? chamadoSalvo.getAtendente().getId() : null,
                 chamadoSalvo.getCategoria().getId());
     }
